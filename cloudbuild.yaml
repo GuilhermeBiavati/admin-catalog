@@ -55,7 +55,7 @@ steps:
     args:
       ["exec", "-t", "micro-videos-app", "php", "/var/www/artisan", "migrate"]
 
-  - id: "Rodando PHPUnit"
+  - id: "Rodando PHPUnit."
     name: "docker"
     args:
       [
