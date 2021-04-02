@@ -11,7 +11,7 @@ steps:
         "-u",
         "root",
         "-t",
-        "app",
+        "micro-videos-app",
         "chown",
         "-R",
         "www-data:www-data",
