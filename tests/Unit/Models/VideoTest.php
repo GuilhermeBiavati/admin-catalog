@@ -30,7 +30,7 @@ class VideoTest extends TestCase
      */
     public function testFillableAttribute()
     {
-        $fillable = ['title', 'description', 'opened', 'year_lauched', 'rating', 'duration', 'video_file', 'thumb_file'];
+        $fillable = ['title', 'description', 'opened', 'year_lauched', 'rating', 'duration', 'video_file', 'thumb_file', 'banner_file', 'trailer_file'];
         $this->assertEquals($fillable, $this->video->getFillable());
     }
 

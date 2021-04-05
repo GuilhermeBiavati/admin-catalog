@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\CastMenberResource;
 use App\Models\CastMenber;
 use Illuminate\Http\Request;
 
@@ -29,5 +30,15 @@ class CastMenberController extends BasicCrudController
     protected function rulesUpdate()
     {
         return $this->rules;
+    }
+
+    protected function resourceCollection()
+    {
+        return $this->resource();
+    }
+
+    protected function resource()
+    {
+        return CastMenberResource::class;
     }
 }

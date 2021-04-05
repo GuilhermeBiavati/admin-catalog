@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BasicCrudController;
 use App\Models\CastMenber;
 use App\Models\Video;
 use Tests\Stubs\Models\VideoStub;
+use Tests\Stubs\Resources\VideoResourceStub;
 
 class VideoControllerStub extends BasicCrudController
 {
@@ -37,5 +38,15 @@ class VideoControllerStub extends BasicCrudController
     protected function rulesUpdate()
     {
         return $this->rules;
+    }
+
+    protected function resourceCollection()
+    {
+        return $this->resource();
+    }
+
+    protected function resource()
+    {
+        return VideoResourceStub::class;
     }
 }

@@ -1,5 +1,5 @@
 steps:
-  - id: "Rodando docker-compose"
+  - id: "Gerando enc do Storage"
     name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
     args:

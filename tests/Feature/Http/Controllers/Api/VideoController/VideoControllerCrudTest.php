@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Http\Controllers\Api\VideoController;
 
+use App\Http\Resources\VideoResource;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Video;
+use Arr;
 use Tests\Traits\TestValidations;
 use Tests\Traits\TestSaves;
 
@@ -13,16 +15,34 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
 
     use TestValidations, TestSaves;
 
+    private $serializedFields = [
+        'id', 'title', 'description', 'year_lauched', 'opened', 'rating', 'duration', 'video_file', 'thumb_file', 'banner_file', 'trailer_file', 'created_at', 'updated_at'
+    ];
+
     public function testIndex()
     {
         $response = $this->get(route('videos.index'));
-        $response->assertStatus(200)->assertJson([$this->video->toArray()]);
+        $response->assertStatus(200)->assertJson([
+            'meta' => ['per_page' => 15]
+        ])
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => $this->serializedFields
+                ],
+                'links' => [],
+                'meta' => []
+            ]);
+
+
+        $response->assertJson(VideoResource::collection(collect([$this->video]))->response()->getData(true));
     }
 
     public function testShow()
     {
         $response = $this->get(route('videos.show', $this->video->id));
-        $response->assertStatus(200)->assertJson($this->video->toArray());
+        $response->assertStatus(200)->assertJsonStructure([
+            'data' => $this->serializedFields
+        ]);
     }
 
 
@@ -129,22 +149,30 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
 
     public function testStore()
     {
-        $category = factory(Category::class)->create();
-        $genre = factory(Genre::class)->create();
-        $genre->categories()->attach($category->id);
-        $this->assertStore($this->sendData + ['categories_id' => [$category->id], 'genres_id' => [$genre->id]], $this->sendData);
-        $this->assertStore($this->sendData + ['opened' => true, 'categories_id' => [$category->id], 'genres_id' => [$genre->id]], $this->sendData + ['opened' => true]);
-        $this->assertStore($this->sendData + ['rating' => Video::RATING_LIST[1], 'categories_id' => [$category->id], 'genres_id' => [$genre->id]], $this->sendData + ['rating' => Video::RATING_LIST[1]]);
+        $testData = Arr::except($this->sendData, ['categories_id', 'genres_id']);
+
+        $response = $this->assertStore($this->sendData, $testData);
+
+        $response->assertJsonStructure([
+            'data' => $this->serializedFields
+        ]);
+
+        $response->assertJson((new VideoResource(Video::find($response->json('data.id'))))->response()->getData(true));
+
+        $this->assertStore($this->sendData + ['opened' => true], $testData + ['opened' => true]);
+        $this->assertStore($this->sendData + ['rating' => Video::RATING_LIST[1]], $testData + ['rating' => Video::RATING_LIST[1]]);
     }
 
     public function testUpdate()
     {
-        $category = factory(Category::class)->create();
-        $genre = factory(Genre::class)->create();
-        $genre->categories()->attach($category->id);
-        $this->assertUpdate($this->sendData + ['categories_id' => [$category->id], 'genres_id' => [$genre->id]], $this->sendData);
-        $this->assertUpdate($this->sendData + ['opened' => true, 'categories_id' => [$category->id], 'genres_id' => [$genre->id]], $this->sendData + ['opened' => true]);
-        $this->assertUpdate($this->sendData + ['rating' => Video::RATING_LIST[1], 'categories_id' => [$category->id], 'genres_id' => [$genre->id]], $this->sendData + ['rating' => Video::RATING_LIST[1]]);
+        $testData = Arr::except($this->sendData, ['categories_id', 'genres_id']);
+        $response = $this->assertUpdate($this->sendData, $testData);
+        $response->assertJsonStructure([
+            'data' => $this->serializedFields
+        ]);
+        $response->assertJson((new VideoResource(Video::find($response->json('data.id'))))->response()->getData(true));
+        $this->assertUpdate($this->sendData + ['opened' => true], $testData + ['opened' => true]);
+        $this->assertUpdate($this->sendData + ['rating' => Video::RATING_LIST[1]], $testData + ['rating' => Video::RATING_LIST[1]]);
     }
 
     public function testDestroy()

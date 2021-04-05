@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
+use App\Http\Resources\CastMenberResource;
 use App\Models\CastMenber;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Traits\TestValidations;
@@ -15,6 +16,11 @@ class CastMenberControllerTest extends TestCase
 
     private $castMenber;
 
+    private $serializedFields = [
+        'id', 'name', 'type', 'created_at', 'updated_at'
+    ];
+
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -25,13 +31,24 @@ class CastMenberControllerTest extends TestCase
     {
         $response = $this->get(route('cast_menbers.index'));
 
-        $response->assertStatus(200)->assertJson([$this->castMenber->toArray()]);
+        $response->assertStatus(200)->assertJson([
+            'meta' => ['per_page' => 15]
+        ])->assertJsonStructure([
+            'data' => [
+                '*' => $this->serializedFields
+            ],
+            'links' => [],
+            'meta' => []
+        ]);
+        $response->assertJson(CastMenberResource::collection(collect([$this->castMenber]))->response()->getData(true));
     }
 
     public function testShow()
     {
         $response = $this->get(route('cast_menbers.show', $this->castMenber->id));
-        $response->assertStatus(200)->assertJson($this->castMenber->toArray());
+        $response->assertStatus(200)->assertJsonStructure([
+            'data' => $this->serializedFields
+        ]);;
     }
 
 
@@ -75,7 +92,13 @@ class CastMenberControllerTest extends TestCase
         ];
 
         foreach ($data as $key => $value) {
-            $this->assertStore($value, $value + ['deleted_at' => null]);
+            $response = $this->assertStore($value, $value + ['deleted_at' => null]);
+
+            $response->assertJsonStructure([
+                'data' => $this->serializedFields
+            ]);
+
+            $response->assertJson((new CastMenberResource(CastMenber::find($response->json('data.id'))))->response()->getData(true));
         }
     }
 
@@ -85,11 +108,19 @@ class CastMenberControllerTest extends TestCase
             'type' => CastMenber::TYPE_ACTOR
 
         ]);
+
         $data = [
             'name' => 'test',
             'type' => CastMenber::TYPE_DIRECTOR
         ];
-        $this->assertUpdate($data, $data + ['deleted_at' => null]);
+
+        $response = $this->assertUpdate($data, $data + ['deleted_at' => null]);
+
+        $response->assertJsonStructure([
+            'data' => $this->serializedFields
+        ]);
+
+        $response->assertJson((new CastMenberResource(CastMenber::find($response->json('data.id'))))->response()->getData(true));
     }
 
     public function testDestroy()
