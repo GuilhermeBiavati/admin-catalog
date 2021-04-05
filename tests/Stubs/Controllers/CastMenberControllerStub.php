@@ -3,6 +3,7 @@
 namespace Tests\Stubs\Controllers;
 
 use App\Http\Controllers\Api\BasicCrudController;
+use App\Http\Resources\CastMenberResource;
 use App\Models\CastMenber;
 use Tests\Stubs\Models\CastMenberStub;
 
@@ -32,5 +33,15 @@ class CastMenberControllerStub extends BasicCrudController
     protected function rulesUpdate()
     {
         return $this->rules;
+    }
+
+    protected function resourceCollection()
+    {
+        return $this->resource();
+    }
+
+    protected function resource()
+    {
+        return CastMenberResource::class;
     }
 }
