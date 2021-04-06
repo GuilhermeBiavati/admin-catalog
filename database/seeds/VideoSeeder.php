@@ -22,7 +22,7 @@ class VideoSeeder extends Seeder
 
         $dir = Storage::getDriver()->getAdapter()->getPathPrefix();
 
-        File::deleteDirectory($dir);
+        File::deleteDirectory($dir, true);
 
         $self = $this;
 

@@ -23,7 +23,21 @@ class GenreControllerTest extends TestCase
     private $category;
 
     private $serializedFields = [
-        'id', 'name', 'is_active', 'created_at', 'updated_at'
+        'id',
+        'name',
+        'is_active',
+        'created_at',
+        'updated_at',
+        'categories' => [
+            '*' => [
+                'id',
+                'name',
+                'description',
+                'is_active',
+                'created_at',
+                'updated_at'
+            ]
+        ]
     ];
 
 
