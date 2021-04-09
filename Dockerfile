@@ -1,8 +1,11 @@
 FROM php:7-fpm-alpine
-# FROM php:7.3.6-fpm-alpine3.9
+# FROM php:7.3.6-fpm-alpine3.9cd..
 # FROM php:8.0-fpm-alpine
 
 RUN apk add --no-cache shadow openssl bash mysql-client nodejs npm git freetype-dev libjpeg-turbo-dev libpng-dev
+
+RUN touch /root/.bashrc | echo "PS1='\w\$ '" >> /root/.bashrc
+
 RUN docker-php-ext-install pdo pdo_mysql
 # RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -16,6 +19,8 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN npm config set cache /var/www/ .npm-cache --global
 
 RUN usermod -u 1000 www-data
 

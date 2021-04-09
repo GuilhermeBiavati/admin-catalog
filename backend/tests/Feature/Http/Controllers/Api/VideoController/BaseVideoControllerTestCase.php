@@ -60,7 +60,7 @@ abstract class BaseVideoControllerTestCase extends TestCase
         $data = array_key_exists(0, $data) ? $data[0] : $data;
         foreach ($fileFields as $field) {
             $file = $video->{$field};
-            $this->assertEquals($video->relativeFilePath($file) ? Storage::url($video->relativeFilePath($file)) : null, $data[$field . '_url']);
+            $this->assertEquals(Storage::url($video->relativeFilePath($file)), $data[$field . '_url']);
         }
     }
 }

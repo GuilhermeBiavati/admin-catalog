@@ -31,7 +31,7 @@ trait UploadFiles
 
   public function relativeFilePath($value)
   {
-    return $value ? "{$this->uploadDir()}/{$value}" : null;
+    return "{$this->uploadDir()}/{$value}";
   }
 
   public function uploadFiles(array $files)
