@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@material-ui/core": "^4.0.0",
+    "react": "^16.14.0"
+  }
+}

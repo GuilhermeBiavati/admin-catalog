@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import Box from '@material-ui/core/Box';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './routes/AppRouter';
+import Breadcrumb from './components/Breadcrumb';
 
 const App: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const App: React.FC = () => {
       <BrowserRouter>
         <Navbar />
         <Box paddingTop="70px">
+          <Breadcrumb />
           <AppRouter />
         </Box>
       </BrowserRouter>
