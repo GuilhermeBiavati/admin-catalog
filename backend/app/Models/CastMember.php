@@ -6,7 +6,7 @@ use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CastMenber extends Model
+class CastMember extends Model
 {
     use SoftDeletes, Uuid;
 

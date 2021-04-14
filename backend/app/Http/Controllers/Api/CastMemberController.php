@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\CastMenberResource;
-use App\Models\CastMenber;
+use App\Http\Resources\CastMemberResource;
+use App\Models\CastMember;
 use Illuminate\Http\Request;
 
-class CastMenberController extends BasicCrudController
+class CastMemberController extends BasicCrudController
 {
     private $rules;
 
@@ -14,13 +14,13 @@ class CastMenberController extends BasicCrudController
     {
         $this->rules = [
             'name' => 'required|max:255',
-            'type' => 'required|in:' . implode(',', [CastMenber::TYPE_ACTOR, CastMenber::TYPE_DIRECTOR])
+            'type' => 'required|in:' . implode(',', [CastMember::TYPE_ACTOR, CastMember::TYPE_DIRECTOR])
         ];
     }
 
     protected function model()
     {
-        return CastMenber::class;
+        return CastMember::class;
     }
 
     protected function rulesStore()
@@ -39,6 +39,6 @@ class CastMenberController extends BasicCrudController
 
     protected function resource()
     {
-        return CastMenberResource::class;
+        return CastMemberResource::class;
     }
 }

@@ -3,11 +3,11 @@
 namespace Tests\Stubs\Controllers;
 
 use App\Http\Controllers\Api\BasicCrudController;
-use App\Http\Resources\CastMenberResource;
-use App\Models\CastMenber;
-use Tests\Stubs\Models\CastMenberStub;
+use App\Http\Resources\CastMemberResource;
+use App\Models\CastMember;
+use Tests\Stubs\Models\CastMemberStub;
 
-class CastMenberControllerStub extends BasicCrudController
+class CastMemberControllerStub extends BasicCrudController
 {
 
     private $rules;
@@ -16,13 +16,13 @@ class CastMenberControllerStub extends BasicCrudController
     {
         $this->rules = [
             'name' => 'required|max:255',
-            'type' => 'required|in:' . implode(',', [CastMenber::TYPE_ACTOR, CastMenber::TYPE_DIRECTOR])
+            'type' => 'required|in:' . implode(',', [CastMember::TYPE_ACTOR, CastMember::TYPE_DIRECTOR])
         ];
     }
 
     protected function model()
     {
-        return CastMenberStub::class;
+        return CastMemberStub::class;
     }
 
     protected function rulesStore()
@@ -42,6 +42,6 @@ class CastMenberControllerStub extends BasicCrudController
 
     protected function resource()
     {
-        return CastMenberResource::class;
+        return CastMemberResource::class;
     }
 }

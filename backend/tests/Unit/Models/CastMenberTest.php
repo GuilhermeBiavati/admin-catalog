@@ -2,19 +2,19 @@
 
 namespace Tests\Unit\Models;
 
-use App\Models\CastMenber;
+use App\Models\CastMember;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\Uuid;
 
-class CastMenberTest extends TestCase
+class CastMemberTest extends TestCase
 {
-    private $menber;
+    private $Member;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->menber = new CastMenber();
+        $this->Member = new CastMember();
     }
 
     protected function tearDown(): void
@@ -30,7 +30,7 @@ class CastMenberTest extends TestCase
     {
         $fillable = ['name', 'type'];
 
-        $this->assertEquals($fillable, $this->menber->getFillable());
+        $this->assertEquals($fillable, $this->Member->getFillable());
     }
 
     public function testIfUseTraitsAttribute()
@@ -39,29 +39,29 @@ class CastMenberTest extends TestCase
             SoftDeletes::class, Uuid::class
         ];
 
-        $menberTraits = array_keys(class_uses(CastMenber::class));
-        $this->assertEquals($traits, $menberTraits);
+        $MemberTraits = array_keys(class_uses(CastMember::class));
+        $this->assertEquals($traits, $MemberTraits);
     }
 
     public function testCastsAttribute()
     {
         $casts = ['id' => 'string'];
 
-        $this->assertEquals($casts, $this->menber->getCasts());
+        $this->assertEquals($casts, $this->Member->getCasts());
     }
 
     public function testIncrementingAttribute()
     {
 
-        $this->assertFalse($this->menber->incrementing);
+        $this->assertFalse($this->Member->incrementing);
     }
 
     public function testDatesAttribute()
     {
         $dates = ['created_at', 'updated_at', 'deleted_at'];
         foreach ($dates as $date) {
-            $this->assertContains($date, $this->menber->getDates());
+            $this->assertContains($date, $this->Member->getDates());
         }
-        $this->assertCount(count($dates), $this->menber->getDates());
+        $this->assertCount(count($dates), $this->Member->getDates());
     }
 }

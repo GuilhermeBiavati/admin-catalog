@@ -2,19 +2,19 @@
 
 namespace Tests\Feature\Http\Controllers\Api;
 
-use App\Http\Resources\CastMenberResource;
-use App\Models\CastMenber;
+use App\Http\Resources\CastMemberResource;
+use App\Models\CastMember;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Traits\TestValidations;
 use Tests\Traits\TestSaves;
 use Tests\TestCase;
 
-class CastMenberControllerTest extends TestCase
+class CastMemberControllerTest extends TestCase
 {
 
     use DatabaseMigrations, TestValidations, TestSaves;
 
-    private $castMenber;
+    private $castMember;
 
     private $serializedFields = [
         'id', 'name', 'type', 'created_at', 'updated_at'
@@ -24,12 +24,12 @@ class CastMenberControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->castMenber = factory(CastMenber::class)->create();
+        $this->castMember = factory(CastMember::class)->create();
     }
 
     public function testIndex()
     {
-        $response = $this->get(route('cast_menbers.index'));
+        $response = $this->get(route('cast_members.index'));
 
         $response->assertStatus(200)->assertJson([
             'meta' => ['per_page' => 15]
@@ -40,12 +40,12 @@ class CastMenberControllerTest extends TestCase
             'links' => [],
             'meta' => []
         ]);
-        $response->assertJson(CastMenberResource::collection(collect([$this->castMenber]))->response()->getData(true));
+        $response->assertJson(CastMemberResource::collection(collect([$this->castMember]))->response()->getData(true));
     }
 
     public function testShow()
     {
-        $response = $this->get(route('cast_menbers.show', $this->castMenber->id));
+        $response = $this->get(route('cast_members.show', $this->castMember->id));
         $response->assertStatus(200)->assertJsonStructure([
             'data' => $this->serializedFields
         ]);;
@@ -83,11 +83,11 @@ class CastMenberControllerTest extends TestCase
         $data = [
             [
                 'name' => 'test',
-                'type' => CastMenber::TYPE_ACTOR
+                'type' => CastMember::TYPE_ACTOR
             ],
             [
                 'name' => 'test',
-                'type' => CastMenber::TYPE_DIRECTOR
+                'type' => CastMember::TYPE_DIRECTOR
             ]
         ];
 
@@ -98,20 +98,20 @@ class CastMenberControllerTest extends TestCase
                 'data' => $this->serializedFields
             ]);
 
-            $response->assertJson((new CastMenberResource(CastMenber::find($response->json('data.id'))))->response()->getData(true));
+            $response->assertJson((new CastMemberResource(CastMember::find($response->json('data.id'))))->response()->getData(true));
         }
     }
 
     public function testUpdate()
     {
-        $this->castMenber = factory(CastMenber::class)->create([
-            'type' => CastMenber::TYPE_ACTOR
+        $this->castMember = factory(CastMember::class)->create([
+            'type' => CastMember::TYPE_ACTOR
 
         ]);
 
         $data = [
             'name' => 'test',
-            'type' => CastMenber::TYPE_DIRECTOR
+            'type' => CastMember::TYPE_DIRECTOR
         ];
 
         $response = $this->assertUpdate($data, $data + ['deleted_at' => null]);
@@ -120,28 +120,28 @@ class CastMenberControllerTest extends TestCase
             'data' => $this->serializedFields
         ]);
 
-        $response->assertJson((new CastMenberResource(CastMenber::find($response->json('data.id'))))->response()->getData(true));
+        $response->assertJson((new CastMemberResource(CastMember::find($response->json('data.id'))))->response()->getData(true));
     }
 
     public function testDestroy()
     {
-        $this->json('DELETE', route('cast_menbers.destroy', $this->castMenber->id));
-        $this->assertSoftDeleted($this->castMenber->getTable(), $this->castMenber->toArray());
+        $this->json('DELETE', route('cast_members.destroy', $this->castMember->id));
+        $this->assertSoftDeleted($this->castMember->getTable(), $this->castMember->toArray());
     }
 
 
     protected function routeStore()
     {
-        return route('cast_menbers.store');
+        return route('cast_members.store');
     }
 
     protected function routeUpdate()
     {
-        return route('cast_menbers.update', $this->castMenber);
+        return route('cast_members.update', $this->castMember);
     }
 
     protected function model()
     {
-        return CastMenber::class;
+        return CastMember::class;
     }
 }

@@ -3,7 +3,7 @@
 namespace Tests\Stubs\Controllers;
 
 use App\Http\Controllers\Api\BasicCrudController;
-use App\Models\CastMenber;
+use App\Models\CastMember;
 use App\Models\Video;
 use Tests\Stubs\Models\VideoStub;
 use Tests\Stubs\Resources\VideoResourceStub;

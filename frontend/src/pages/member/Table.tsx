@@ -3,7 +3,6 @@ import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { httpVideo } from '../../util/http/index';
-import { Chip } from '@material-ui/core';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 
@@ -22,11 +21,7 @@ const columnsDefiniton: MUIDataTableColumn[] = [
     label: 'Tipo?',
     options: {
       customBodyRender(value, tableMeta, updateValue) {
-        return value == '1' ? (
-          <Chip label="Diretor" color={'primary'}></Chip>
-        ) : (
-          <Chip label="Ator" color={'secondary'}></Chip>
-        );
+        return CastMenberTypeMap[value];
       },
     },
   },
@@ -46,7 +41,7 @@ const Table = () => {
 
   useEffect(() => {
     httpVideo
-      .get('cast_menbers')
+      .get('cast_members')
       .then((response) => setData(response.data.data));
   }, []);
   return <MUIDataTable title="" columns={columnsDefiniton} data={data} />;

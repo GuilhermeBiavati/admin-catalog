@@ -71,7 +71,7 @@ class VideoCrudTest extends BaseVideoTestCase
 
         $this->assertCount(1, $videos);
 
-        $menberKey = array_keys($videos->first()->getAttributes());
+        $MemberKey = array_keys($videos->first()->getAttributes());
 
         $this->assertEqualsCanonicalizing([
             'id',
@@ -88,7 +88,7 @@ class VideoCrudTest extends BaseVideoTestCase
             'created_at',
             'updated_at',
             'deleted_at'
-        ], $menberKey);
+        ], $MemberKey);
     }
 
     public function testCreateWithBasicFields()

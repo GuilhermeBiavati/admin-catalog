@@ -4,7 +4,7 @@ namespace Tests\Stubs\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CastMenberResourceStub extends JsonResource
+class CastMemberResourceStub extends JsonResource
 {
     /**
      * Transform the resource into an array.

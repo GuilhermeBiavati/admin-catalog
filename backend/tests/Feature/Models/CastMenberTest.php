@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\CastMenber;
+use App\Models\CastMember;
 use Error;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
-class CastMenberTest extends TestCase
+class CastMemberTest extends TestCase
 {
 
     use DatabaseMigrations;
@@ -21,54 +21,54 @@ class CastMenberTest extends TestCase
      */
     public function testList()
     {
-        factory(CastMenber::class, 1)->create();
+        factory(CastMember::class, 1)->create();
 
-        $castmenbers = CastMenber::all();
+        $castMembers = CastMember::all();
 
-        $this->assertCount(1, $castmenbers);
+        $this->assertCount(1, $castMembers);
 
-        $menberKey = array_keys($castmenbers->first()->getAttributes());
+        $MemberKey = array_keys($castMembers->first()->getAttributes());
 
         $this->assertEqualsCanonicalizing([
             'id', 'name', 'type', 'created_at', 'updated_at', 'deleted_at'
-        ], $menberKey);
+        ], $MemberKey);
     }
 
     public function testCreate()
     {
-        $castmenber = CastMenber::create([
+        $castMember = CastMember::create([
             'name' => 'test1',
-            'type' => CastMenber::TYPE_DIRECTOR
+            'type' => CastMember::TYPE_DIRECTOR
         ]);
 
-        $this->assertEquals('test1', $castmenber->name);
-        $this->assertTrue(Uuid::isValid($castmenber->id));
-        $this->assertEquals(CastMenber::TYPE_DIRECTOR, $castmenber->type);
+        $this->assertEquals('test1', $castMember->name);
+        $this->assertTrue(Uuid::isValid($castMember->id));
+        $this->assertEquals(CastMember::TYPE_DIRECTOR, $castMember->type);
     }
 
     public function testUpdate()
     {
-        $castmenber = factory(CastMenber::class)->create(['type' => CastMenber::TYPE_DIRECTOR])->first();
+        $castMember = factory(CastMember::class)->create(['type' => CastMember::TYPE_DIRECTOR])->first();
 
         $data = [
             'name' => 'test_name_updated',
-            'type' => CastMenber::TYPE_ACTOR
+            'type' => CastMember::TYPE_ACTOR
         ];
 
-        $castmenber->update($data);
+        $castMember->update($data);
 
 
         foreach ($data as $key => $value) {
-            $this->assertEquals($value, $castmenber->{$key});
+            $this->assertEquals($value, $castMember->{$key});
         }
     }
 
     public function testDelete()
     {
-        $castmenber = factory(CastMenber::class)->create()->first();
+        $castMember = factory(CastMember::class)->create()->first();
 
-        $castmenber->delete();
+        $castMember->delete();
 
-        $this->assertSoftDeleted($castmenber->getTable(), $castmenber->toArray());
+        $this->assertSoftDeleted($castMember->getTable(), $castMember->toArray());
     }
 }
