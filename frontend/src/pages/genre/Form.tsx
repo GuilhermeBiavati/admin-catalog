@@ -1,28 +1,12 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Button, { ButtonProps } from '@material-ui/core/Button';
-import {
-  FormControlLabel,
-  makeStyles,
-  Theme,
-  RadioGroup,
-  FormLabel,
-  FormControl,
-  Radio,
-  InputLabel,
-  Select,
-  MenuItem,
-  Input,
-  createStyles,
-} from '@material-ui/core';
+import { makeStyles, Theme, MenuItem, createStyles } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import genreHttp from '../../util/http/genre-http';
-import { Chip } from '@material-ui/core';
 import { useEffect } from 'react';
 import categoryHttp from '../../util/http/category-http';
-import { watch } from 'node:fs';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -63,9 +47,10 @@ const Form = () => {
   const classes = useStyles();
 
   const buttonProps: ButtonProps = {
-    variant: 'outlined',
+    variant: 'contained',
     size: 'medium',
     className: classes.submit,
+    color: 'secondary',
   };
 
   const [categories, setCategories] = React.useState<any[]>([]);

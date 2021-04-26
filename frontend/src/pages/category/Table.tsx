@@ -7,6 +7,8 @@ import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import categoryHttp from '../../util/http/category-http';
 
+import { BadgeYes, BadgeNo } from '../../components/Badge';
+
 const columnsDefiniton: MUIDataTableColumn[] = [
   {
     name: 'name',
@@ -17,11 +19,7 @@ const columnsDefiniton: MUIDataTableColumn[] = [
     label: 'Ativo?',
     options: {
       customBodyRender(value, tableMeta, updateValue) {
-        return value ? (
-          <Chip label="Sim" color={'primary'}></Chip>
-        ) : (
-          <Chip label="Não" color={'secondary'}></Chip>
-        );
+        return value ? <BadgeYes /> : <BadgeNo />;
       },
     },
   },

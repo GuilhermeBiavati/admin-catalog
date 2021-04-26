@@ -1,0 +1,18 @@
+# Query: <Box dir={'rtl'}>
+
+5 results - 5 files
+
+frontend/src/pages/category/Form.tsx:
+  70:       <Box dir={'rtl'} paddingBottom={2}>
+
+frontend/src/pages/genre/Form.tsx:
+  117:       <Box dir={'rtl'} paddingBottom={2}>
+
+frontend/src/pages/genre/PageList.tsx:
+  11:       <Box dir={'rtl'} paddingBottom={2}>
+
+frontend/src/pages/member/Form.tsx:
+  72:       <Box dir={'rtl'} paddingBottom={2}>
+
+frontend/src/pages/member/PageList.tsx:
+  11:       <Box dir={'rtl'} paddingBottom={2}>

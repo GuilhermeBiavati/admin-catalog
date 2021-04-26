@@ -19,9 +19,10 @@ const Form = () => {
   const classes = useStyles();
 
   const buttonProps: ButtonProps = {
-    variant: 'outlined',
+    variant: 'contained',
     size: 'medium',
     className: classes.submit,
+    color: 'secondary',
   };
 
   const {
@@ -33,7 +34,7 @@ const Form = () => {
   } = useForm();
 
   const onSubmit = (data, event) => {
-    // categoryHttp.create(data).then((response) => console.log(response));
+    categoryHttp.create(data).then((response) => console.log(response));
   };
 
   return (

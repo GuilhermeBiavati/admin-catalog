@@ -1,6 +1,5 @@
 import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import {
@@ -27,9 +26,10 @@ const Form = () => {
   const classes = useStyles();
 
   const buttonProps: ButtonProps = {
-    variant: 'outlined',
+    variant: 'contained',
     size: 'medium',
     className: classes.submit,
+    color: 'secondary',
   };
 
   const {
@@ -55,8 +55,16 @@ const Form = () => {
       <FormControl>
         <FormLabel>
           <RadioGroup {...register('type')}>
-            <FormControlLabel value="1" control={<Radio />} label={'Diretor'} />
-            <FormControlLabel value="2" control={<Radio />} label={'Ator'} />
+            <FormControlLabel
+              value="1"
+              control={<Radio color="primary" />}
+              label={'Diretor'}
+            />
+            <FormControlLabel
+              value="2"
+              control={<Radio color="primary" />}
+              label={'Ator'}
+            />
           </RadioGroup>
         </FormLabel>
       </FormControl>
