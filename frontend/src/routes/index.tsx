@@ -35,6 +35,13 @@ const routes: MyRouteProps[] = [
     exact: true,
   },
   {
+    name: 'categories.edit',
+    label: 'Editar categoria',
+    path: '/categories/:id/edit',
+    component: CategoryCreate,
+    exact: true,
+  },
+  {
     name: 'genres.list',
     label: 'Listar gêneros',
     path: '/genres',
@@ -45,6 +52,13 @@ const routes: MyRouteProps[] = [
     name: 'genres.create',
     label: 'Criar gêneros',
     path: '/genres/create',
+    component: GenreCreate,
+    exact: true,
+  },
+  {
+    name: 'genres.edit',
+    label: 'Editar gêneros',
+    path: '/genres/:id/edit',
     component: GenreCreate,
     exact: true,
   },
@@ -62,12 +76,11 @@ const routes: MyRouteProps[] = [
     component: CastMemberCreate,
     exact: true,
   },
-
   {
-    name: 'categories.edit',
-    label: 'Editar Categoria',
-    path: '/categories/:id/edit',
-    component: CategoryList,
+    name: 'members.edit',
+    label: 'Editar membros de elencos',
+    path: '/menbers/:id/edit',
+    component: CastMemberCreate,
     exact: true,
   },
 ];
