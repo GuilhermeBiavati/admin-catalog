@@ -48,7 +48,7 @@ class CastMemberControllerTest extends TestCase
         $response = $this->get(route('cast_members.show', $this->castMember->id));
         $response->assertStatus(200)->assertJsonStructure([
             'data' => $this->serializedFields
-        ]);;
+        ]);
     }
 
 

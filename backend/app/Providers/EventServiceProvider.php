@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\CastMember;
+use App\Models\Category;
+use App\Models\Genre;
+use App\Observers\CategoryObserver;
+use App\Observers\SyncModelObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -28,7 +33,8 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
+        Category::observe(CategoryObserver::class);
+        // Genre::observe(SyncModelObserver::class);
+        // CastMember::observe(SyncModelObserver::class);
     }
 }
