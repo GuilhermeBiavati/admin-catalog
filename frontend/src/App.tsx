@@ -1,16 +1,18 @@
-import React from 'react';
-import { Navbar } from './components/Navbar';
-import Box from '@material-ui/core/Box';
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
-import { BrowserRouter } from 'react-router-dom';
-import AppRouter from './routes/AppRouter';
-import Breadcrumb from './components/Breadcrumb';
-import theme from './theme';
-import {SnackbarProvider} from './components/SnackbarProvider';
+import React from "react";
+import { Navbar } from "./components/Navbar";
+import Box from "@material-ui/core/Box";
+import { CssBaseline, MuiThemeProvider } from "@material-ui/core";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./routes/AppRouter";
+import Breadcrumb from "./components/Breadcrumb";
+import theme from "./theme";
+import { SnackbarProvider } from "./components/SnackbarProvider";
+import { ReactKeycloakProvider } from "@react-keycloak/web";
+import { keycloak } from "./util/auth";
 
 const App: React.FC = () => {
   return (
-    <React.Fragment>
+    <ReactKeycloakProvider authClient={keycloak}>
       <MuiThemeProvider theme={theme}>
         <SnackbarProvider>
           <CssBaseline />
@@ -23,7 +25,7 @@ const App: React.FC = () => {
           </BrowserRouter>
         </SnackbarProvider>
       </MuiThemeProvider>
-    </React.Fragment>
+    </ReactKeycloakProvider>
   );
 };
 

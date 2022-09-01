@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['namespace' => 'Api', 'middleware' => 'auth'], function () {
+Route::group(['namespace' => 'Api'], function () {
 
     $expeptCreateAndEdit = ['except' => ['create', 'edit']];
     Route::resource('categories', 'CategoryController', $expeptCreateAndEdit);
